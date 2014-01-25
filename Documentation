@@ -1,0 +1,58 @@
+SBUnix Documentation
+--------------------
+
+Preemptive OS (60 point project)
+
+Supported Modules:
+
+Virtual memory, ring 3 processes 
+malloc(), COW fork()
+
+tarfs 
+– open, read, close, opendir, readdir, closedir 
+
+• stdin, stdout, stderr 
+– read() and write()
+
+Binaries: ls, ps, sleep, sh
+
+Shell with cd PATH, ls, ps
+As we do not get enough time to work on shell, we have developed a very crude shell version in which you can run a command only once then you need to restart the shell.
+Only cd PATH can be entered multiple times and to move to parent directory we need to write "cd ." instead of "cd ..). In shell we are creating a child process using fork() and then running the /bin/ls or /bin/ps using execve() and making the the 
+parent process to wait using waitpid call till child completes its execution.
+Also while taking input in the shell for the time, we are stopping the timer at the botton right to get things work.
+
+NOTE: For the remaining binaries to execute on shell you can type "bin/binary_fileName" {bin/hello} to execute the binray using the shell.
+
+
+API's available
+- malloc 
+– fork, execvpe, getpid, wait, waitpid,getpid, exit
+– open, close, read 
+– opendir, readdir, closedir 
+– printf, scanf 
+- sleep
+
+
+API declaration
+
+void *malloc(uint64_t no_bytes);
+
+uint64_t fork();
+int execve(char *filename,char *argv[],char *env[]);	//argv and env are not implemented and not used in the kernel function.
+int get_pid();
+void wait();
+void waitpid(int pid);
+void exit(int status);
+
+int open(const char *pathname, int flags);
+int read(int fd, char* buffer,int size);
+int close(int fd);
+
+
+DIR * opendir(const char *fullpath);
+dirent * readdir(DIR* dir);
+int closedir(DIR *dir);
+
+int printf(const char *format, ...);
+int scanf(const char * format,...);
